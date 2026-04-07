@@ -45,7 +45,7 @@ function Testimonials() {
               Say
             </h2>
             <p className="text-zinc-500 text-sm max-w-xs leading-relaxed">
-              Join over 50,000+ explorers who have journeyed into the heart of Kaziranga with us.
+              Join over 50,000+ explorers who have journeyed into the heart of Kaziranga with Kaziranga Adventure Hub.
             </p>
             <div className="flex gap-1">
               {[...Array(5)].map((_, i) => (

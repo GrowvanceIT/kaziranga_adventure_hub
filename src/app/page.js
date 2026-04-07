@@ -11,7 +11,7 @@ import FinalCTA from "./components/FinalCTA";
 
 export default function Home() {
   return (
-  <>
+  <main>
   <Hero/>
   <AboutSection/>
   <WhyChooseUs/>
@@ -21,8 +21,6 @@ export default function Home() {
   <BestTimeToVisit/>
   <Testimonials/>
   <FinalCTA/>
-  
-  
-  </>
+  </main>
   );
 }

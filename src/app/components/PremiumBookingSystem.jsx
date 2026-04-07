@@ -2,9 +2,22 @@
 import React, { useState, useEffect } from 'react'
 import { X, Calendar, Users, ShieldCheck, ArrowRight, CheckCircle2, Phone, Mail } from 'lucide-react'
 
+// WordPress API Configuration
+const WORDPRESS_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://kazirangaadventurehub.com/wp-json/kaziranga-booking/v1';
+
 export default function PremiumBookingSystem() {
   const [isOpen, setIsOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    plannedDate: '',
+    groupSize: 'Couple / 2 People',
+    safariPreferences: '',
+  })
 
   // Prevent scrolling when modal is open
   useEffect(() => {
@@ -15,13 +28,62 @@ export default function PremiumBookingSystem() {
     }
   }, [isOpen])
 
-  const handleSubmit = (e) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setIsSubmitted(true)
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setIsOpen(false)
-    }, 3000)
+    setIsSubmitting(true)
+    setError('')
+
+    try {
+      const response = await fetch(`${WORDPRESS_API_URL}/submit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          full_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone || '',
+          planned_date: formData.plannedDate,
+          group_size: formData.groupSize,
+          safari_preferences: formData.safariPreferences || '',
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to submit booking')
+      }
+
+      if (data.success) {
+        setIsSubmitted(true)
+        // Reset form
+        setFormData({
+          fullName: '',
+          email: '',
+          phone: '',
+          plannedDate: '',
+          groupSize: 'Couple / 2 People',
+          safariPreferences: '',
+        })
+        setTimeout(() => {
+          setIsSubmitted(false)
+          setIsOpen(false)
+        }, 3000)
+      }
+    } catch (err) {
+      setError(err.message || 'Failed to submit booking. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -97,46 +159,116 @@ export default function PremiumBookingSystem() {
                   </div>
 
                   <form className="space-y-6" onSubmit={handleSubmit}>
+                    {error && (
+                      <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+                        {error}
+                      </div>
+                    )}
+                    
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 ml-1">Full Name</label>
-                        <input required type="text" placeholder="John Doe" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-green-500 transition-all" />
+                        <input 
+                          required 
+                          type="text" 
+                          name="fullName"
+                          value={formData.fullName}
+                          onChange={handleInputChange}
+                          placeholder="John Doe" 
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-green-500 transition-all" 
+                        />
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 ml-1">Email Address</label>
-                        <input required type="email" placeholder="john@example.com" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-green-500 transition-all" />
+                        <input 
+                          required 
+                          type="email" 
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          placeholder="john@example.com" 
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-green-500 transition-all" 
+                        />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 ml-1">Planned Date</label>
+                        <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 ml-1">Phone Number (Optional)</label>
                         <div className="relative">
-                          <Calendar className="absolute left-5 top-4 text-zinc-600" size={18} />
-                          <input required type="date" className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-green-500 transition-all" />
+                          <Phone className="absolute left-5 top-4 text-zinc-600" size={18} />
+                          <input 
+                            type="tel" 
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleInputChange}
+                            placeholder="+91 98765 43210" 
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-green-500 transition-all" 
+                          />
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 ml-1">Total Explorers</label>
+                        <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 ml-1">Planned Date</label>
                         <div className="relative">
-                          <Users className="absolute left-5 top-4 text-zinc-600" size={18} />
-                          <select className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-green-500 appearance-none cursor-pointer transition-all">
-                            <option className="bg-zinc-900">Solo Traveler</option>
-                            <option className="bg-zinc-900" selected>Couple / 2 People</option>
-                            <option className="bg-zinc-900">Small Group (3-5)</option>
-                            <option className="bg-zinc-900">Large Group (6+)</option>
-                          </select>
+                          <Calendar className="absolute left-5 top-4 text-zinc-600" size={18} />
+                          <input 
+                            required 
+                            type="date" 
+                            name="plannedDate"
+                            value={formData.plannedDate}
+                            onChange={handleInputChange}
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-green-500 transition-all" 
+                          />
                         </div>
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 ml-1">Safari Preferences</label>
-                      <textarea placeholder="Tell us about your interests (e.g., Photography, Birding, Tiger tracking...)" rows="3" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-green-500 transition-all resize-none"></textarea>
+                      <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 ml-1">Total Explorers</label>
+                      <div className="relative">
+                        <Users className="absolute left-5 top-4 text-zinc-600" size={18} />
+                        <select 
+                          name="groupSize"
+                          value={formData.groupSize}
+                          onChange={handleInputChange}
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-green-500 appearance-none cursor-pointer transition-all"
+                        >
+                          <option className="bg-zinc-900">Solo Traveler</option>
+                          <option className="bg-zinc-900">Couple / 2 People</option>
+                          <option className="bg-zinc-900">Small Group (3-5)</option>
+                          <option className="bg-zinc-900">Large Group (6+)</option>
+                        </select>
+                      </div>
                     </div>
 
-                    <button className="w-full py-5 bg-green-600 hover:bg-green-500 text-white rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl shadow-green-900/20 active:scale-[0.98]">
-                      Request Availability
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 ml-1">Safari Preferences</label>
+                      <textarea 
+                        name="safariPreferences"
+                        value={formData.safariPreferences}
+                        onChange={handleInputChange}
+                        placeholder="Tell us about your interests (e.g., Photography, Birding, Tiger tracking...)" 
+                        rows="3" 
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-green-500 transition-all resize-none"
+                      ></textarea>
+                    </div>
+
+                    <button 
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-5 bg-green-600 hover:bg-green-500 text-white rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl shadow-green-900/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        <span className="flex items-center justify-center gap-2">
+                          <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                          </svg>
+                          Submitting...
+                        </span>
+                      ) : (
+                        'Request Availability'
+                      )}
                     </button>
                     
                     <p className="text-center text-[10px] text-zinc-600 uppercase tracking-widest">

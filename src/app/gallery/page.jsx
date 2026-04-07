@@ -104,7 +104,7 @@ function page() {
               Our naturalists post daily updates from the field. Follow our journey in real-time.
             </p>
             <button className="px-10 py-5 bg-white text-black rounded-full font-bold text-sm tracking-widest uppercase hover:bg-green-500 hover:text-white transition-all shadow-xl shadow-black/50">
-              Follow @KazirangaWild
+              Follow @KazirangaAdventureHub
             </button>
           </div>
         </div>

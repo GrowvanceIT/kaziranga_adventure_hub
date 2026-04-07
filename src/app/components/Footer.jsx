@@ -22,7 +22,7 @@ function Footer() {
     ],
     contact: [
       { icon: <Phone size={16} />, text: '+91 98765 43210' },
-      { icon: <Mail size={16} />, text: 'explore@kaziranga.com' },
+      { icon: <Mail size={16} />, text: 'explore@kazirangaadventurehub.com' },
       { icon: <MapPin size={16} />, text: 'Kohora, Assam, India' },
     ]
   }
@@ -42,7 +42,7 @@ function Footer() {
                 <Leaf className="text-white" size={28} fill="currentColor" />
               </div>
               <span className="text-2xl font-bold tracking-tighter">
-                Kaziranga Safari.
+                Kaziranga Adventure Hub.
               </span>
             </Link>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight max-w-sm">
@@ -106,7 +106,7 @@ function Footer() {
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <p className="text-zinc-600 text-xs tracking-widest font-bold uppercase">
-              © {currentYear} Kaziranga Expeditions.
+              © {currentYear} Kaziranga Adventure Hub.
             </p>
             <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10">
               <ShieldCheck size={14} className="text-green-900" />

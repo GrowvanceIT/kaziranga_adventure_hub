@@ -45,10 +45,10 @@ function Header() {
           </div>
           <div className="flex flex-col">
             <span className="text-white font-black text-xl leading-none tracking-tighter ">
-              Kaziranga <span className="text-green-500"></span>
+              Kaziranga <span className="text-green-500">Adventure</span>
             </span>
             <span className="text-[8px] text-zinc-500 font-bold uppercase tracking-[0.3em] leading-none mt-1">
-              Safari
+              Hub
             </span>
           </div>
         </Link>
