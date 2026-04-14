@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { X, Calendar, Users, ShieldCheck, ArrowRight, CheckCircle2, Phone, Mail } from 'lucide-react'
 
 // WordPress API Configuration
-const WORDPRESS_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://kazirangaadventurehub.com/wp-json/kaziranga-booking/v1';
+const WORDPRESS_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://mistyrose-cassowary-578513.hostingersite.com/v1';
 
 export default function PremiumBookingSystem() {
   const [isOpen, setIsOpen] = useState(false)

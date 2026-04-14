@@ -1,9 +1,12 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React from 'react'
 import { ArrowRight, MapPin } from 'lucide-react' // Optional: for a pro touch
+import { useRouter } from 'next/navigation'
 
 function Hero() {
+  const router = useRouter()
   return (
     <section className="relative min-h-screen w-full flex items-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -40,7 +43,7 @@ function Hero() {
             <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-10 py-6 text-lg rounded-full transition-all hover:scale-105">
               Book Your Safari
             </Button>
-            <Button size="lg" variant="outline" className="text-white border-white/40 bg-white/10 backdrop-blur-md hover:bg-white/20 px-10 py-6 text-lg rounded-full">
+            <Button onClick={() => router.push('/#packages')} size="lg" variant="outline" className="text-white border-white/40 bg-white/10 backdrop-blur-md hover:bg-white/20 px-10 py-6 text-lg rounded-full">
               View Packages
             </Button>
           </div>

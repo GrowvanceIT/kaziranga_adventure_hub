@@ -46,7 +46,7 @@ function PremiumPackages() {
   ];
 
   return (
-    <section className="py-24 relative bg-zinc-950 overflow-hidden min-h-screen flex items-center">
+    <section id='packages' className="py-24 relative bg-zinc-950 overflow-hidden min-h-screen flex items-center">
       
       {/* Dynamic Global Background - Softened */}
       <div className="absolute inset-0 z-0 transition-all duration-1000">
