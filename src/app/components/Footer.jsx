@@ -21,9 +21,9 @@ function Footer() {
       { name: 'Contact Expert', href: '#' },
     ],
     contact: [
-      { icon: <Phone size={16} />, text: '+91 98765 43210' },
+      { icon: <Phone size={16} />, text: '+91 60031 96559' },
       { icon: <Mail size={16} />, text: 'explore@kazirangaadventurehub.com' },
-      { icon: <MapPin size={16} />, text: 'Kohora, Assam, India' },
+      { icon: <MapPin size={16} />, text: 'Kaziranga, Assam, India' },
     ]
   }
 

@@ -2,6 +2,7 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { PhoneCall, CalendarCheck, Info, ArrowRight, ShieldCheck } from 'lucide-react'
+import { makePhoneCall } from '@/lib/whatsappHelper'
 
 function FinalCTA() {
   return (
@@ -51,6 +52,7 @@ function FinalCTA() {
             </Button>
             
             <Button 
+            onClick={()=> makePhoneCall("+916003196559")}
               size="lg" 
               variant="outline" 
               className="group border-white/20 bg-white/5 backdrop-blur-md text-white hover:bg-white/10 px-12 py-8 text-xl rounded-full transition-all"

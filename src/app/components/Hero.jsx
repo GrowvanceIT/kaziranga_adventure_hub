@@ -4,6 +4,7 @@ import Image from 'next/image'
 import React from 'react'
 import { ArrowRight, MapPin } from 'lucide-react' // Optional: for a pro touch
 import { useRouter } from 'next/navigation'
+import { openWhatsApp, sendBookingInquiry } from '@/lib/whatsappHelper'
 
 function Hero() {
   const router = useRouter()
@@ -40,7 +41,7 @@ function Hero() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-10 py-6 text-lg rounded-full transition-all hover:scale-105">
+            <Button onClick={() => sendBookingInquiry("+916003196559")} size="lg"   className="bg-green-600 hover:bg-green-700 text-white px-10 py-6 text-lg rounded-full transition-all hover:scale-105">
               Book Your Safari
             </Button>
             <Button onClick={() => router.push('/#packages')} size="lg" variant="outline" className="text-white border-white/40 bg-white/10 backdrop-blur-md hover:bg-white/20 px-10 py-6 text-lg rounded-full">

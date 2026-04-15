@@ -1,9 +1,9 @@
-
 'use client'
 import React from 'react'
-import { Check, Star, Zap, clock, ShieldCheck, ArrowRight, Coffee, Camera } from 'lucide-react'
+import { Check, Star, Zap, Clock, ShieldCheck, ArrowRight, Coffee, Camera } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import { sendPackageInquiry } from '@/lib/whatsappHelper'
 
 function page() {
   const packages = [
@@ -55,6 +55,10 @@ function page() {
       popular: false
     }
   ]
+
+  const handlePackageClick = (pkg) => {
+    sendPackageInquiry(pkg)
+  }
 
   return (
     <main className="bg-zinc-950 text-white pt-32 pb-24">
@@ -110,11 +114,12 @@ function page() {
               </div>
 
               <Button 
+                onClick={() => handlePackageClick(pkg)}
                 variant={pkg.popular ? "default" : "outline"} 
                 className={`w-full py-7 rounded-2xl font-bold text-sm uppercase tracking-widest transition-all cursor-pointer ${
                   pkg.popular 
                   ? 'bg-green-600 hover:bg-green-500 text-white border-none' 
-                  : 'border-white/10 bg-transparent hover:bg-white text-white'
+                  : 'border-white/10 bg-transparent hover:bg-white/10 text-white'
                 }`}
               >
                 {pkg.cta}
@@ -185,7 +190,13 @@ function page() {
       <section className="container mx-auto px-6 md:px-12 mt-24 text-center">
         <p className="text-zinc-500 text-sm max-w-2xl mx-auto">
           Looking for a custom group booking or a school trip? 
-          <button className="text-green-500 font-bold ml-2 hover:underline inline-flex items-center gap-1">
+          <button 
+            onClick={() => {
+              const { sendCustomMessage } = require('@/lib/whatsappHelper')
+              sendCustomMessage("Hi! I'm interested in a group booking or school trip to Kaziranga. Please share available packages and group discounts.")
+            }}
+            className="text-green-500 font-bold ml-2 hover:underline inline-flex items-center gap-1"
+          >
             Contact our group desk <ArrowRight size={14} />
           </button>
         </p>

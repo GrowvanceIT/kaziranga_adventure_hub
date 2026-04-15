@@ -45,28 +45,6 @@ function PremiumPackages() {
     }
   ];
 
-  const handleWhatsAppClick = (pkg) => {
-    // Format the message
-    const message = `*Wildlife Safari Package Inquiry*%0A%0A` +
-      `🏷️ *Package:* ${pkg.name}%0A` +
-      `📅 *Duration:* ${pkg.duration}%0A` +
-      `💰 *Price:* ${pkg.price} per person%0A` +
-      `✨ *Features:*%0A${pkg.features.map(f => `   • ${f}`).join('%0A')}%0A%0A` +
-      `👋 *Hello! I'm interested in this package. Could you please share more details?*%0A%0A` +
-      `📞 *Contact Number:* [Your Number]%0A` +
-      `👥 *Number of People:* [e.g., 2 Adults, 1 Child]%0A` +
-      `📅 *Preferred Travel Date:* [DD/MM/YYYY]`;
-
-    // WhatsApp number (without + symbol)
-    const phoneNumber = "916003196559";
-    
-    // Create WhatsApp URL
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-    
-    // Open WhatsApp in new tab
-    window.open(whatsappUrl, '_blank');
-  };
-
   return (
     <section id='packages' className="py-24 relative bg-zinc-950 overflow-hidden min-h-screen flex items-center">
       
@@ -148,7 +126,6 @@ function PremiumPackages() {
                 </div>
                 
                 <Button 
-                  onClick={() => handleWhatsAppClick(pkg)}
                   className={`w-full py-8 rounded-2xl text-lg font-bold transition-all relative overflow-hidden group/btn
                     ${pkg.popular 
                       ? 'bg-green-600 hover:bg-green-500 text-white' 
@@ -168,22 +145,7 @@ function PremiumPackages() {
 
         {/* Tailored Note */}
         <div className="mt-16 flex justify-center">
-          <div 
-            onClick={() => {
-              const message = `*Bespoke Wildlife Journey Inquiry*%0A%0A` +
-                `👋 Hello! I'm interested in creating a customized wildlife safari experience.%0A%0A` +
-                `📝 *Requirements:*%0A` +
-                `   • Duration: [Number of days]%0A` +
-                `   • Group Size: [Number of people]%0A` +
-                `   • Preferred Dates: [DD/MM/YYYY]%0A` +
-                `   • Special Interests: [Photography/Bird watching/Luxury/Adventure]%0A%0A` +
-                `📞 *Contact Number:* [Your Number]%0A%0A` +
-                `Looking forward to your expert advice! 🌿`;
-              const phoneNumber = "916003196559";
-              window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-            }}
-            className="group cursor-pointer flex items-center gap-4 bg-white/5 border border-white/10 px-8 py-4 rounded-full backdrop-blur-md hover:bg-white/10 transition-all"
-          >
+          <div className="group cursor-pointer flex items-center gap-4 bg-white/5 border border-white/10 px-8 py-4 rounded-full backdrop-blur-md hover:bg-white/10 transition-all">
             <div className="p-2 bg-green-500/20 rounded-full text-green-500">
                <Leaf size={20} />
             </div>

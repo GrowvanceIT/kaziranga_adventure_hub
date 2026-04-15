@@ -1,5 +1,7 @@
+'use client';
 import React from 'react'
 import { ShieldCheck, UserCheck, CalendarDays, Hotel, HeadphonesIcon, Sparkles } from 'lucide-react'
+import { makePhoneCall } from '@/lib/whatsappHelper';
 
 function WhyChooseUs() {
   const features = [
@@ -80,7 +82,7 @@ function WhyChooseUs() {
         {/* Bottom Call to Action (Subtle) */}
         <div className="mt-16 p-8 rounded-3xl bg-gradient-to-r from-green-900/20 to-transparent border border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-xl font-medium">Ready to start your untamed adventure?</p>
-          <button className="px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-full font-bold transition-all shadow-lg shadow-green-900/20">
+          <button onClick={()=>makePhoneCall("+916003196559")} className="px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-full font-bold transition-all shadow-lg shadow-green-900/20">
             Talk to an Expert
           </button>
         </div>

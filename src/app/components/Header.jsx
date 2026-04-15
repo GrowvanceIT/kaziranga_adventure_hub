@@ -149,12 +149,8 @@ function Header() {
               {link.name}
             </Link>
           ))}
-          <Button
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="mt-8 bg-green-600 hover:bg-green-500 text-white rounded-full px-12 py-8 text-xl font-bold uppercase italic"
-          >
-            Start Your Journey
-          </Button>
+         
+         <PremiumBookingSystem fontsize='2xl' isMobile onClose={() => setIsMobileMenuOpen(false)} />
         </div>
       </div>
     </>
